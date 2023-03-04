@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Page</title>
+</head>
+
+<body>
+  <form>
+    <label for="text">Comment: </label>
+    <input type="text" id="text" placeholder="Enter comment text ..." />
+    <button type="submit">Check</button>
+    <p id="out"></p>
+  </form>
+  <script>
+    const labels = {
+      5: 'Religion',
+      0: 'Age',
+      2: 'Gender',
+      1: 'Ethnicity',
+      3: 'Not Cyberbullying',
+      4: 'Other Cyberbullying',
+    }
+    const text = document.querySelector('#text')
+    const form = document.querySelector('form')
+    const out = document.querySelector('#out')
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      try {
+        const res = await fetch('http://localhost:5000', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ comment: text.value })
+        })
+        const data = await res.json()
+
+        out.innerText = `Prediction: ${labels[data.result]}`
+      } catch (err) {
+        console.error(err);
+      }
+    })
+  </script>
+</body>
+
+</html>
