@@ -16,8 +16,11 @@ def post_comment():
     jsonStr = json.dumps(jsonData)
     data = json.loads(jsonStr)
     
-    vectorizer = pickle.load(open('./vectorizer.pkl', 'rb'))
-    model = pickle.load(open('./model.pkl', 'rb'))
+    # vectorizer = pickle.load(open('./vectorizer.pkl', 'rb'))
+    # model = pickle.load(open('./model.pkl', 'rb'))
+
+    vectorizer = pickle.load(open('./vectorizer-ml.pkl', 'rb'))
+    model = pickle.load(open('./model-ml.pkl', 'rb'))
     
     text = np.zeros(100)
     text = [data['comment']]
